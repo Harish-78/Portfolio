@@ -1,0 +1,26 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Define the underline effect */
+/* Define the underline effect */
+.underline-hover {
+  position: relative;
+}
+
+.underline-hover::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  color: #292966;
+  bottom: 0;
+  width: 0; /* Start with width 0 to transition from left */
+  height: 2px;
+  background-color: #292966; /* Change this to your desired color */
+  transition: width 0.3s ease; /* Transition timing set in seconds */
+}
+
+.underline-hover:hover::after {
+  width: 100%; /* Expand to full width on hover */
+}
+
