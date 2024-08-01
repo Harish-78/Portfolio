@@ -12,7 +12,7 @@ const App = () => {
     <div>
       <BrowserRouter>
         <div className="relative">
-          <div className="sticky top-0 opacity-100 bg-white">
+          <div className="sticky top-0 z-[100001] opacity-100 bg-white">
             <Navbar />
           </div>
           <Routes>

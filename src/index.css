@@ -24,3 +24,6 @@
   width: 100%; /* Expand to full width on hover */
 }
 
+.ant-drawer-body{
+  padding: 10px !important
+}
