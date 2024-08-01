@@ -1,33 +1,57 @@
-import React from "react";
+import { Button, Drawer, Menu } from "antd";
+import React, { useState } from "react";
 import { useNavigate } from "react-router";
+import {
+  MenuFoldOutlined,
+  HomeOutlined,
+  InfoOutlined,
+  ProjectOutlined,
+  PhoneOutlined,
+} from "@ant-design/icons";
 
 const Navbar = () => {
   const navigate = useNavigate();
+  const [open, setOpen] = useState(false);
+  const showDrawer = () => {
+    setOpen(true);
+  };
+  const onClose = () => {
+    setOpen(false);
+  };
+
   const list = [
     {
-      link: "Home",
-      icon: "https://cdn-icons-png.freepik.com/256/2673/2673694.png?ga=GA1.1.1847498234.1706074892&semt=ais",
+      label: "Home",
       to: "/",
+      icon: <HomeOutlined />,
+      gap: false,
     },
     {
-      link: "About",
-      icon: "https://cdn-icons-png.freepik.com/256/3122/3122785.png?ga=GA1.1.1847498234.1706074892",
+      label: "About",
       to: "/about",
+      icon: <InfoOutlined />,
+      gap: false,
     },
     {
-      link: "Projects",
-      icon: "https://cdn-icons-png.freepik.com/256/2702/2702943.png?ga=GA1.1.1847498234.1706074892&semt=ais",
+      label: "Projects",
       to: "/projects",
+      icon: <ProjectOutlined />,
+      gap: false,
     },
     {
-      link: "Resume",
-      icon: "https://cdn-icons-png.freepik.com/256/3479/3479188.png?ga=GA1.1.1847498234.1706074892&semt=ais",
+      label: "Contact",
+      to: "/contact",
+      icon: <PhoneOutlined />,
+      gap: false,
+    },
+    {
+      label: (
+        <div className="flex justify-start ml-5">
+          <Button>Resume</Button>
+        </div>
+      ),
       to: "/resume",
-    },
-    {
-      link: "Blogs",
-      icon: "https://cdn-icons-png.freepik.com/256/2740/2740423.png?ga=GA1.1.1847498234.1706074892&semt=ais",
-      to: "/blogs",
+      gap: true,
     },
   ];
 
@@ -36,7 +60,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="w-full shadow-sm  flex justify-between">
+    <div className="w-full shadow-sm bg-white  flex justify-between">
       <div className="flex items-center ">
         <img
           src="https://cdn-icons-png.freepik.com/256/10327/10327368.png?ga=GA1.1.1109276746.1711880727&semt=ais_hybrid"
@@ -45,20 +69,47 @@ const Navbar = () => {
         />
         <h6 className="ml-4 font-semibold font-sans">Portfolio</h6>
       </div>
-      <div className="flex ">
+      <div className="hidden lg:flex md:flex   items-center mr-2">
         {list?.length
-          ? list.map((item, index) => (
-              <div
-                className={`m-2  flex cursor-pointer 
+          ? list
+              .filter((x, index) => x?.gap === false)
+              .map((item, index) => (
+                <div
+                  className={`m-2  flex cursor-pointer 
                   underline-hover`}
-                onClick={() => handleOnclick(item?.to)}
-                key={index}
-              >
-                <p className="m-2 font-sans text-[13px] mt-3">{item?.link} </p>
-              </div>
-            ))
+                  onClick={() => handleOnclick(item?.to)}
+                  key={index}
+                >
+                  <p className="m-2 font-sans text-[13px] mt-3">
+                    {item?.label}{" "}
+                  </p>
+                </div>
+              ))
           : null}
+        <Button>Resume</Button>
       </div>
+      <div className="flex sm:hidden m-4 ">
+        <Button type="default" className="w-2" onClick={showDrawer}>
+          <MenuFoldOutlined />
+        </Button>
+      </div>
+      <Drawer
+        title="Basic Drawer"
+        placement={"right"}
+        closable={false}
+        width={250}
+        onClose={onClose}
+        open={open}
+        key={"right"}
+      >
+        <Menu
+          style={{
+            width: 256,
+          }}
+          mode="inline"
+          items={list}
+        />
+      </Drawer>
     </div>
   );
 };
